@@ -1,0 +1,47 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+header {
+	position: fixed;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
+	transform: translateX(-50%);
+	padding: 0 1em;
+	background-color:rgba(64, 128, 192, 0.7);
+	border-radius: 0 0 1em 1em;
+	z-index: 100;
+	text-align: center;
+}
+
+header > .logo {
+	height: 50px;
+}
+
+header > * {
+	display: inline-block;
+}
+
+nav {
+	vertical-align: bottom;
+}
+
+nav > ul {
+	margin: 1em;
+	padding: 0;
+}
+
+nav > ul > * {
+	display: inline-block;
+}
+
+#map {
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+}
