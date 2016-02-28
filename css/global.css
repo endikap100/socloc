@@ -1,7 +1,44 @@
+/*
+	Design
+==============
+
+Primary palette: Indigo
+ * Main color: #3F51B5
+ * Dark color: #303F9F
+ * Light color: #7986CB
+ * Background color: #E8EAF6
+
+Accent palette: Yellow
+ * Main color: #FFEA00
+ * Dark color: #FFD600
+ * Light color: #FFFF00
+
+Warn palette: Red
+ * Main color: #D50000
+
+Text palette:
+ * Dark text primary color: rgba(0, 0, 0, 0.87)
+ * Dark text secondary color: rgba(0, 0, 0, 0.54)
+ * Dark text disabled color: rgba(0, 0, 0, 0.38)
+ * Light text primary color: rgba(255, 255, 255, 1)
+ * Light text secondary color: rgba(255, 255, 255, 0.70)
+ * Light text disabled color: rgba(255, 255, 255, 0.50)
+
+*/
+
+*.dark {
+	color: rgba(255, 255, 255, 1);
+}
+
+*.light {
+	color: rgba(0, 0, 0, 0.87);
+}
+
 html, body {
 	width: 100%;
 	height: 100%;
 	margin: 0;
+	color: rgba(0, 0, 0, 0.87);
 }
 
 header {
@@ -12,11 +49,14 @@ header {
 	-ms-transform: translateX(-50%);
 	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
-	padding: 0 1em;
-	background-color:rgba(64, 128, 192, 0.7);
-	border-radius: 0 0 1em 1em;
 	z-index: 100;
+
+	padding: 0 1em 0.5em;
+
+	background-color: #7986CB;
+	border-radius: 0 0 1em 1em;
 	text-align: center;
+	box-shadow: 0 0.1em 1em #888888;
 }
 
 header > .logo {
@@ -32,12 +72,68 @@ nav {
 }
 
 nav > ul {
-	margin: 1em;
+	margin: 0 1em;
 	padding: 0;
 }
 
 nav > ul > * {
 	display: inline-block;
+}
+
+a.link {
+	position: relative;
+	display: block;
+
+	padding: 0.7em 1em 0.7em;
+
+	overflow: hidden;
+
+	background-color: #7986CB;
+
+	color: inherit;
+	font-weight: bold;
+	text-decoration: none;
+
+	border-radius: 0.5em;
+
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+}
+
+a.link:hover, a.link:focus {
+	background-color: #3F51B5;
+}
+
+a.button {
+	position: relative;
+	display: block;
+
+	padding: 0.7em 1em 0.7em;
+
+	overflow: hidden;
+
+	background-color: #FFEA00;
+
+	color: inherit;
+	font-weight: bold;
+	text-decoration: none;
+
+
+	border-width: 0;
+	outline: none;
+	border-radius: 2px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+}
+
+a.button:hover, a.button:focus {
+	background-color: #FFFF00;
 }
 
 #map {
