@@ -1,0 +1,4 @@
+- description: daily 1PM tweet
+  url: /update_twitter
+  schedule: every day 13:00
+  timezone: America/New_York

@@ -109,3 +109,6 @@ target/
 appengine-generated/
 
 # Created by .ignore support plugin (hsz.mobi)
+
+#twitter api keys
+twitterKeys.txt
