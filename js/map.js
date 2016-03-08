@@ -3,18 +3,29 @@
  */
 'use strict';
 
-var mapDiv;
 var map;
+var mapDiv;
 var markers= [];
 
-function initMap() {
+window.onload = function() {
 	mapDiv = document.getElementById('map');
+
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(initMap);
+	} else {
+		alert("Geolocation is not supported by this browser. Not every feature may work correctly")
+		initMap();
+	}
+};
+
+function initMap(position) {
+	var latitude = (position) ? position.coords.latitude : 0;
+	var longitude = (position) ? position.coords.longitude : 0;
 	map = new google.maps.Map(mapDiv, {
-		center: {lat: 43.16, lng: 02.56},
+		center: {lat: latitude, lng: longitude},
 		zoom: 4
 	});
 }
-
 /**
  * Places a marker in the position determined by the latitude and longitude.
  * If a message is passed the marker will display it when clicked.
