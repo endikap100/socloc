@@ -1,4 +1,4 @@
-- description: daily 1PM tweet
+- description: every 20 mins get geolocation
   url: /update_twitter
-  schedule: every day 13:00
+  schedule: every 20 mins
   timezone: America/New_York

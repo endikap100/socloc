@@ -9,7 +9,6 @@ api = tweepy.API(auth)
 #1 for global geolocation
 global_tendencies = api.trends_place(1)
 tendencies = []
-#print api.geo_id(07002)
 
 for trend in global_tendencies[0]["trends"]:
     tendencies.append(trend["name"])
