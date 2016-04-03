@@ -1,4 +1,9 @@
 import tweepy
+from google.appengine.ext import db
+
+class Location(db.Model):
+    hashtag = db.StringProperty(required=True)
+    location = db.StringProperty(required=True)
 
 consumer_key, consumer_secret = [line.rstrip('\n') for line in open('twitterKeys.txt')]
 
@@ -22,3 +27,5 @@ for tweet in tweepy.Cursor(api.search, q=(tendencies[0])).items():
         print ""
         print tweet
         print tweet.coordinates
+        location = Location(hashtag=tendencies[0], location=tweet.coordinates)
+        location.put()

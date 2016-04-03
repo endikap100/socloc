@@ -15,11 +15,33 @@
 # limitations under the License.
 #
 import webapp2
+from google.appengine.ext import db
+
+
+class Location(db.Model):
+    hashtag = db.StringProperty(required=True)
+    location = db.StringProperty(required=True)
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.write('SocLoc mola!!')
+        # insert
+        imagen = Location(hashtag="4", location="5,3")
+        print imagen
+        imagen.put()
+
+
+class Foto(webapp2.RequestHandler):
+    def get(self):
+        # select
+        q = Location.all()
+        #q.filter("id=", 3)
+        hashtag = q.get().hashtag
+        location= q.get().location
+        self.response.write(hashtag+" : "+location)
+
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/f', Foto)
 ], debug=True)
