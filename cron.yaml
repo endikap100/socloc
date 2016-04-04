@@ -1,3 +1,4 @@
+cron:
 - description: every 20 mins get geolocation
   url: /update_twitter
   schedule: every 20 mins

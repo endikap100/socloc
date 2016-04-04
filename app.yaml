@@ -9,11 +9,10 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
-- url: /update_twitter
+- url: .*
   script: TwitterLocation.app
 
-- url: .*
-  script: main.app
+
 
 
 libraries:
