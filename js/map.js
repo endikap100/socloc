@@ -17,8 +17,6 @@ window.onload = function () {
 		alert("Geolocation is not supported by this browser. Not every feature may work correctly");
 		initMap();
 	}
-
-	getTwitterLocations();
 };
 
 /**
@@ -32,6 +30,7 @@ function initMap(position) {
 		center: {lat: latitude, lng: longitude},
 		zoom: 4
 	});
+	google.maps.event.addListenerOnce(map, 'google-map-ready', getTwitterLocations());
 }
 
 /**
@@ -58,8 +57,11 @@ function getTwitterLocations() {
 function addMarkers(jsonObj) {
 	for (var hashtag in jsonObj) {
 		if (jsonObj.hasOwnProperty(hashtag)) {
-			for (var i = jsonObj[hashtag].length; i <= 0; i--) {
-				addMarker(jsonObj[hashtag][i][0], jsonObj[hashtag][i][1], hashtag);
+			for (var i = jsonObj[hashtag].length - 1; i >= 0; i--) {
+				var split = jsonObj[hashtag][i].split(',');
+				var latitude = parseFloat(split[0]);
+				var longitude = parseFloat(split[1]);
+				addMarker(longitude, latitude, hashtag);
 			}
 		}
 	}
@@ -68,8 +70,8 @@ function addMarkers(jsonObj) {
 /**
  * Places a marker in the position determined by the latitude and longitude.
  * If a message is passed the marker will display it when clicked.
- * @param {float} latitude Latitude of the marker.
- * @param {float} longitude Longitude of the marker.
+ * @param {Number} latitude Latitude of the marker.
+ * @param {Number} longitude Longitude of the marker.
  * @param {String} [message] HTML to display when marker is clicked.
  */
 function addMarker(latitude, longitude, message) {
