@@ -5,6 +5,7 @@ cnx = mysql.connector.connect(user='root', password='soclocapi',
                               host='127.0.0.1',
                               database='socloc')
 print "conect"
+cursor = cnx.cursor()
 consumer_key, consumer_secret = [line.rstrip('\n') for line in open('twitterKeys.txt')]
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret,"http://soclocapi.appspot.com/callback")
@@ -31,5 +32,13 @@ for tweet in tweepy.Cursor(api.search, q=(tendencies[0])).items():
         print tweet.coordinates
         #location = Location(hashtag=tendencies[0], location=tweet.coordinates)
         #location.put()
+        add_location = ("INSERT INTO location(hashtag, location)VALUES (%s, %s, %s, %s, %s)")
+        data_location = (tendencies[0], tweet.coordinates)
 
+        # Insert new employee
+        cursor.execute(add_location, data_location)
+        emp_no = cursor.lastrowid
+        cnx.commit()
+
+cnx.close()
 cnx.close()

@@ -20,3 +20,5 @@ libraries:
   version: "2.5.2"
 - name: ssl
   version: latest
+env_variables:
+   GAE_USE_SOCKETS_HTTPLIB : 'anyvalue'
