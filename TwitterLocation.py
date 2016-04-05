@@ -28,11 +28,11 @@ for tweet in tweepy.Cursor(api.search, q=(tendencies[0])).items():
     if tweet.coordinates != None:
         print ""
         print tweet
-        print tweet.coordinates["coordinates"][0] + ","+tweet.coordinates["coordinates"][1]
+        print str(tweet.coordinates["coordinates"][0]) + ","+str(tweet.coordinates["coordinates"][1])
         #location = Location(hashtag=tendencies[0], location=tweet.coordinates)
         #location.put()
         add_location = ("INSERT INTO location(hashtag, location)VALUES (%s, %s)")
-        data_location = (tendencies[0], tweet.coordinates["coordinates"][0] + ","+tweet.coordinates["coordinates"][1])
+        data_location = (tendencies[0], str(tweet.coordinates["coordinates"][0]) + ","+str(tweet.coordinates["coordinates"][1]))
 
         # Insert new employee
         cursor.execute(add_location, data_location)
