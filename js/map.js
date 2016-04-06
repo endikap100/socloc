@@ -63,8 +63,8 @@ function loadApiCall(jsonObj) {
 			var currentHashtagList = [];
 			for (var i = jsonObj[hashtag].length - 1; i >= 0; i--) {
 				var split = jsonObj[hashtag][i].split(',');
-				var latitude = parseFloat(split[0]);
-				var longitude = parseFloat(split[1]);
+				var longitude = parseFloat(split[0]);
+				var latitude = parseFloat(split[1]);
 
 				var marker = new google.maps.Marker({
 					position: {lat: latitude, lng: longitude},
