@@ -32,10 +32,10 @@ class MyHandler(BaseHTTPRequestHandler):
             self.wfile.write((str(response)).replace("'",'"'));
             self.wfile.close()
         else:
-            self.path="/error.html"
             try:
                 sendReply = False
                 if self.path.endswith(".html"):
+                    self.path="/error.html"
                     mimetype='text/html'
                     sendReply = True
                 if self.path.endswith(".jpg"):
