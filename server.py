@@ -34,21 +34,21 @@ class MyHandler(BaseHTTPRequestHandler):
         else:
             try:
                 sendReply = False
-                if self.path.endswith(".html"):
-                    self.path="/error.html"
-                    mimetype='text/html'
-                    sendReply = True
                 if self.path.endswith(".jpg"):
                     mimetype='image/jpg'
                     sendReply = True
-                if self.path.endswith(".gif"):
+                elif self.path.endswith(".gif"):
                     mimetype='image/gif'
                     sendReply = True
-                if self.path.endswith(".js"):
+                elif self.path.endswith(".js"):
                     mimetype='application/javascript'
                     sendReply = True
-                if self.path.endswith(".css"):
+                elif self.path.endswith(".css"):
                     mimetype='text/css'
+                    sendReply = True
+                else:
+                    self.path="/error.html"
+                    mimetype='text/html'
                     sendReply = True
 
                 if sendReply == True:
