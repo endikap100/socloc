@@ -6,7 +6,7 @@ html, body {
 	height:100%;
 }
 body { 
-	background:url(../../../Desktop/free_free-404-error-page-template-2_e3tekdij49kx869g/free-404-error-page-template-2/images/tail-top.gif) left top repeat-x #140100;
+	background:url(../images/tail-top.gif) left top repeat-x #140100;
 	font-family:Georgia, "Times New Roman", Times, serif;
 	font-size:100%; 
 	line-height:1.5em;
@@ -34,7 +34,7 @@ ul, ol {
 #main {
 	width:1000px; 
 	margin:0 auto;
-	background:url(../../../Desktop/free_free-404-error-page-template-2_e3tekdij49kx869g/free-404-error-page-template-2/images/main-bg.jpg) no-repeat left top;
+	background:url(../images/main-bg.jpg) no-repeat left top;
 	font-size:1.3125em;
 	position:relative;
 }
@@ -71,7 +71,7 @@ p {
 	top:0;
 	width:50%;
 	height:508px;
-	background:url(../../../Desktop/free_free-404-error-page-template-2_e3tekdij49kx869g/free-404-error-page-template-2/images/tail-left.gif) left top repeat-x;
+	background:url(../images/tail-left.gif) left top repeat-x;
 }
 
 /*----- txt, links, lines, titles -----*/
