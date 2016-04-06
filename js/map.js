@@ -2,14 +2,18 @@
  * Created by bluesialia on 27/02/16.
  */
 'use strict';
+var apiUrl = 'http://socloc.cloudapp.net:9000';
 
 var map;
 var mapDiv;
 var markers = [];
-var apiUrl = 'http://socloc.cloudapp.net:9000';
+
+var hashtag_listDiv;
+var hashtag_list = {};
 
 window.onload = function () {
 	mapDiv = document.getElementById('map');
+	hashtag_listDiv = document.getElementById('hashtag_list');
 
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(initMap);
@@ -34,7 +38,7 @@ function initMap(position) {
 }
 
 /**
- * Gets the location of several tweets from the API and calls addMarkers().
+ * Gets the location of several tweets from the API and calls loadApiCall().
  */
 function getTwitterLocations() {
 	var xhr = new XMLHttpRequest();
@@ -42,7 +46,7 @@ function getTwitterLocations() {
 	xhr.onload = function () {
 		if (xhr.status == 200) {
 			var json = JSON.parse(xhr.responseText);
-			addMarkers(json);
+			loadApiCall(json);
 		}
 	};
 	xhr.open("GET", apiUrl, true);
@@ -50,20 +54,42 @@ function getTwitterLocations() {
 }
 
 /**
- * Places a collection of markers from the api.
- * For each marker, if it has a message, the marker will display it when clicked.
+ * Loads a collection of markers from the api.
  * @param jsonObj JSON containing the markers from the api.
  */
-function addMarkers(jsonObj) {
+function loadApiCall(jsonObj) {
 	for (var hashtag in jsonObj) {
 		if (jsonObj.hasOwnProperty(hashtag)) {
+			var currentHashtagList = [];
 			for (var i = jsonObj[hashtag].length - 1; i >= 0; i--) {
 				var split = jsonObj[hashtag][i].split(',');
 				var latitude = parseFloat(split[0]);
 				var longitude = parseFloat(split[1]);
-				addMarker(longitude, latitude, hashtag);
+
+				var marker = new google.maps.Marker({
+					position: {lat: latitude, lng: longitude},
+					animation: google.maps.Animation.DROP
+				});
+
+				currentHashtagList.push(marker);
 			}
+
+			hashtag_list[hashtag] = currentHashtagList;
+
+			addHashtag(hashtag);
 		}
+	}
+}
+
+/**
+ * Places a list of markers.
+ * For each marker, if it has a message, the marker will display it when clicked.
+ * @param markerList List containing the markers from the api.
+ * @param {String} [message] HTML to display when a marker is clicked.
+ */
+function addMarkers(markerList, message) {
+	for (var i = markerList.length - 1; i >= 0; i--) {
+		addMarker(markerList[i], message);
 	}
 }
 
@@ -74,10 +100,9 @@ function addMarkers(jsonObj) {
  * @param {Number} longitude Longitude of the marker.
  * @param {String} [message] HTML to display when marker is clicked.
  */
-function addMarker(latitude, longitude, message) {
+function addMarkerWithParameters(latitude, longitude, message) {
 	var marker = new google.maps.Marker({
 		position: {lat: latitude, lng: longitude},
-		map: map,
 		animation: google.maps.Animation.DROP
 	});
 
@@ -92,6 +117,42 @@ function addMarker(latitude, longitude, message) {
 
 	marker.setMap(map);
 	markers.push(marker);
+}
+
+/**
+ * Places a marker.
+ * If a message is passed the marker will display it when clicked.
+ * @param marker Marker to place in the map.
+ * @param {String} [message] HTML to display when marker is clicked.
+ */
+function addMarker(marker, message) {
+	if (message) {
+		marker.message = new google.maps.InfoWindow({
+			content: message
+		});
+		marker.addListener('click', function () {
+			marker.message.open(map, marker);
+		});
+	}
+
+	marker.setMap(map);
+	markers.push(marker);
+}
+
+function addHashtag(hashtag) {
+	var li = document.createElement('li');
+	var a = document.createElement('a');
+	a.href = 'javascript:;';
+	a.className = 'link';
+	a.innerHTML = hashtag;
+
+	a.onclick = function() {
+		clearMarkers();
+		addMarkers(hashtag_list[hashtag], hashtag);
+	};
+
+	li.appendChild(a);
+	hashtag_listDiv.appendChild(li);
 }
 
 /**
