@@ -13,7 +13,7 @@ var hashtag_list = {};
 
 window.onload = function () {
 	mapDiv = document.getElementById('map');
-	hashtag_listDiv = document.getElementById('hashtag_list');
+	hashtag_listDiv = document.getElementById('hashtags');
 
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(initMap);
@@ -140,22 +140,25 @@ function addMarker(marker, message) {
 }
 
 function addHashtag(hashtag) {
-	var li = document.createElement('li');
-	var a = document.createElement('a');
-	a.href = 'javascript:;';
-	a.className = 'link';
-	a.innerHTML = hashtag;
-
-	a.onclick = function() {
-		clearMarkers();
-		addMarkers(hashtag_list[hashtag], hashtag);
-	};
-
-	li.appendChild(a);
-	hashtag_listDiv.appendChild(li);
+	var option = document.createElement('option');
+	option.setAttribute('Value',hashtag);
+	option.text = hashtag;
+	hashtag_listDiv.appendChild(option);
 }
 
+function show(){
+		clearMarkers();
+		if(hashtag_listDiv.value != "null"){
+
+			addMarkers(hashtag_list[hashtag_listDiv.value], hashtag_listDiv.value);
+		}
+		if(hashtag_listDiv.childNodes[1].value == "null") {
+			hashtag_listDiv.removeChild(hashtag_listDiv.childNodes[1]);
+		}
+}
 /**
+ *
+	};
  * Removes every marker from the map.
  */
 function clearMarkers() {
